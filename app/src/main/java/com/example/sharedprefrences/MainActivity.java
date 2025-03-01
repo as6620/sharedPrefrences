@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
         settings = getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
         settings.edit();
 
+        String text = settings.getString("text","Skibidi hello kitty!!");
+        int count = settings.getInt("count",-1);
+        tVNum.setText(""+count);
+        eT.setText(text);
 
     }
 
