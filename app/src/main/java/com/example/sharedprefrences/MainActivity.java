@@ -1,5 +1,6 @@
 package com.example.sharedprefrences;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,10 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
     EditText eT;
     TextView tVNum;
-    Button btnCount, btnReset, btnExit;
+    int counter = 0;
+    SharedPreferences settings;
+    SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +28,27 @@ public class MainActivity extends AppCompatActivity {
 
         EditText eT = (EditText) findViewById(R.id.eT);
         TextView tVNum = (TextView) findViewById(R.id.tVNum);
-        Button btnCount = (Button) findViewById(R.id.btnCount);
-        Button btnReset = (Button) findViewById(R.id.btnReset);
-        Button btnExit = (Button) findViewById(R.id.btnExit);
+
+        settings = getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
+        settings.edit();
+
+
     }
 
     public void goCount(View view) {
+        counter++;
+        tVNum.setText(""+counter);
     }
 
     public void goReset(View view) {
+        counter = 0;
+        tVNum.setText(""+counter);
     }
 
     public void goExit(View view) {
+        editor.putString("text",eT.getText().toString());
+        editor.putInt("count",counter);
+        editor.commit();
+        finish();
     }
 }
