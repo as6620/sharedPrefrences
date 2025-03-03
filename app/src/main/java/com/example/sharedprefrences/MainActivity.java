@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
     EditText eT;
     TextView tVNum;
     int counter = 0;
-    SharedPreferences settings;
-    SharedPreferences.Editor editor;
+    int count;
+    String text;
 
 
     @Override
@@ -26,30 +26,33 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText eT = (EditText) findViewById(R.id.eT);
-        TextView tVNum = (TextView) findViewById(R.id.tVNum);
+        eT = (EditText) findViewById(R.id.eT);
+        tVNum = (TextView) findViewById(R.id.tVNum);
 
-        settings = getSharedPreferences("PREFS_NAME",MODE_PRIVATE);
-        settings.edit();
+        SharedPreferences settings = getSharedPreferences("SkibidiFile",MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
 
-        String text = settings.getString("text","Skibidi hello kitty!!");
-        int count = settings.getInt("count",-1);
-        tVNum.setText(""+count);
+        text = settings.getString("text","");
         eT.setText(text);
+        count = settings.getInt("count",-1);
+        tVNum.setText(String.valueOf(count));
+
 
     }
 
     public void goCount(View view) {
         counter++;
-        tVNum.setText(""+counter);
+        tVNum.setText(String.valueOf(counter));
     }
 
     public void goReset(View view) {
         counter = 0;
-        tVNum.setText(""+counter);
+        tVNum.setText(String.valueOf(counter));
     }
 
     public void goExit(View view) {
+        SharedPreferences settings=getSharedPreferences("skibidiFile",MODE_PRIVATE);
+        SharedPreferences.Editor editor=settings.edit();
         editor.putString("text",eT.getText().toString());
         editor.putInt("count",counter);
         editor.commit();
