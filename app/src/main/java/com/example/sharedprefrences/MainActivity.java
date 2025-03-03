@@ -25,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
     String text;
 
 
+    /**
+     * Called when the activity is first created.
+     * Restores saved values from SharedPreferences.
+     *
+     * @param savedInstanceState Saved instance state bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,16 +50,31 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Increments the counter and updates the TextView.
+     *
+     * @param view The view that triggered this method.
+     */
     public void goCount(View view) {
         counter++;
         tVNum.setText(String.valueOf(counter));
     }
 
+    /**
+     * Resets the counter to zero and updates the TextView.
+     *
+     * @param view The view that triggered this method.
+     */
     public void goReset(View view) {
         counter = 0;
         tVNum.setText(String.valueOf(counter));
     }
 
+    /**
+     * Saves the text and counter value in SharedPreferences and exits the app.
+     *
+     * @param view The view that triggered this method.
+     */
     public void goExit(View view) {
         SharedPreferences settings=getSharedPreferences("skibidiFile",MODE_PRIVATE);
         SharedPreferences.Editor editor=settings.edit();
@@ -63,12 +84,24 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Inflates the options menu.
+     *
+     * @param menu The options menu.
+     * @return true if the menu is created successfully.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * Handles selection of menu items.
+     *
+     * @param item The selected menu item.
+     * @return true if the menu item was handled successfully.
+     */
     @Override
     public boolean onOptionsItemSelected(@Nullable MenuItem item) {
         int id = item.getItemId();
